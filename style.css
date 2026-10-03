@@ -1,0 +1,362 @@
+/* --- ESTILOS GENERALES - TEMA OSCURO GARENA --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #12131a;
+    color: #ffffff;
+    padding-bottom: 40px;
+}
+
+/* --- ENCABEZADO --- */
+.navbar {
+    background-color: #1a1c24;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 2px solid #e50914;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.garena-red {
+    color: #e50914;
+}
+
+.region {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+/* --- SECCIÓN HERO CON FONDO Y CARRUSEL TIPO PAGOSTORE --- */
+.hero-banner-section {
+    position: relative;
+    width: 100%;
+    padding: 35px 0 25px 0;
+    
+    background-image: linear-gradient(to bottom, rgba(18, 19, 26, 0.45), rgba(18, 19, 26, 0.95)),
+                      url('fondo.jpg'),
+                      url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    margin-bottom: 15px;
+    
+    /* Le quitamos el borde para borrar la línea */
+    border-bottom: none; 
+}
+
+.carousel-wrapper {
+    position: relative;
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-track-container {
+    width: 200%;
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 10px 0;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    gap: 2%;
+}
+
+.carousel-slide {
+    flex: 0 0 85%;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0.4;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #0d0e15;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    border: 2px solid #e50914;
+    box-shadow: 0 0 25px rgba(218, 39, 48, 0.174);
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Botones de navegación prev / next */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.carousel-btn:hover {
+    background-color: #e50914;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Puntitos indicadores abajo */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, width 0.3s;
+}
+
+.dot.active {
+    background-color: #e50914;
+    width: 24px;
+    border-radius: 6px;
+}
+
+/* --- CONTENEDOR PRINCIPAL Y TARJETAS --- */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.card {
+    background-color: #1a1c29;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #2a2d3d;
+}
+
+.step-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.badge {
+    background-color: #e50914;
+    color: white;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Inputs */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #3a3f58;
+    background-color: #0d0e15;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #e50914;
+}
+
+.subtext {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Grid de Diamantes */
+.grid-diamonds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.diamond-box {
+    background-color: #222536;
+    border: 1px solid #343850;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.diamond-box .icon {
+    font-size: 1.8rem;
+}
+
+.diamond-box h4 {
+    font-size: 1rem;
+}
+
+.diamond-box .price {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.btn-buy {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0;
+    background-color: #e50914;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 5px;
+    transition: background 0.2s;
+}
+
+.btn-buy:hover {
+    background-color: #b20610;
+}
+
+/* Métodos de Pago */
+.payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pay-tag {
+    background-color: #26293b;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    border: 1px solid #3a3f58;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 20px;
+}
+
+/* --- BOTÓN FLOTANTE DE MÚSICA --- */
+.btn-musica-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(26, 28, 36, 0.6);
+    border: 3px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.btn-musica-flotante:hover {
+    transform: scale(1.08);
+    border-color: #ffffff;
+}
+
+.btn-musica-flotante img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.btn-musica-flotante i {
+    font-size: 20px;
+    color: #ffffff;
+    z-index: 2;
+    margin-left: 2px;
+    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+}
+
+.btn-musica-flotante.reproduciendo i {
+    margin-left: 0;
+}
+
+.btn-musica-flotante.reproduciendo img {
+    display: block;
+    animation: girarDisco 4s linear infinite;
+}
+
+.btn-musica-flotante.reproduciendo {
+    border-color: rgba(255, 215, 0, 0.95);
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.7);
+}
+
+@keyframes girarDisco {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Recargas - Free Fire</title>
+    
+    <!-- Enlace para iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Enlace a la hoja de estilos externa -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado / Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="garena-red">🔥 RECARGAS</span> FF
+        </div>
+        <div class="region">
+            🇦🇷 Argentina | ES
+        </div>
+    </header>
+
+    <!-- Sección Hero con Fondo Estático y Carrusel -->
+    <section class="hero-banner-section">
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev-btn" onclick="moverCarrusel(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="carousel-track-container">
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Banner 1 -->
+                    <div class="carousel-slide active">
+                        <!-- Reemplaza 'banner1.jpg' por la ruta de tu imagen local o URL -->
+                        <img src="banner1.jpg" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop'" alt="Promoción 1">
+                    </div>
+                    <!-- Banner 2 -->
+                    <div class="carousel-slide">
+                        <!-- Reemplaza 'banner2.jpg' por la ruta de tu imagen local o URL -->
+                        <img src="banner2.jpg" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop'" alt="Promoción 2">
+                    </div>
+                    <!-- Banner 3 -->
+                    <div class="carousel-slide">
+                        <!-- Reemplaza 'banner3.jpg' por la ruta de tu imagen local o URL -->
+                        <img src="banner3.jpg" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=800&auto=format&fit=crop'" alt="Promoción 3">
+                    </div>
+                    <!-- Banner 4 -->
+                    <div class="carousel-slide">
+                        <!-- Reemplaza 'banner4.jpg' por la ruta de tu imagen local o URL -->
+                        <img src="banner4.gif" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop'" alt="Promoción 4">
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-btn next-btn" onclick="moverCarrusel(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Indicadores (Puntitos abajo) -->
+        <div class="carousel-dots" id="carousel-dots">
+            <span class="dot active" onclick="irASlide(0)"></span>
+            <span class="dot" onclick="irASlide(1)"></span>
+            <span class="dot" onclick="irASlide(2)"></span>
+            <span class="dot" onclick="irASlide(3)"></span>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal de Pasos de Recarga -->
+    <div class="container">
+
+        <!-- Paso 1: Ingreso de ID -->
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">1</span>
+                <h3>Ingresar ID de jugador</h3>
+            </div>
+            <div class="input-group">
+                <input type="text" placeholder="Introduce el ID del jugador..." id="player-id">
+            </div>
+            <p class="subtext">⚠️ Verificá bien tu ID antes de enviar el pedido.</p>
+        </section>
+
+        <!-- Paso 2: Selección de Paquetes -->
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">2</span>
+                <h3>Monto de recarga</h3>
+            </div>
+
+            <div class="grid-diamonds">
+                <!-- Paquete 1 -->
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>100 Diamantes</h4>
+                    <p class="price">$2.500 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20100%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
+                </div>
+
+                <!-- Paquete 2 -->
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>310 Diamantes</h4>
+                    <p class="price">$7.500 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20310%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
+                </div>
+
+                <!-- Paquete 3 -->
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>520 Diamantes</h4>
+                    <p class="price">$12.000 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20520%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
+                </div>
+
+                <!-- Paquete 4 -->
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>1.060 Diamantes</h4>
+                    <p class="price">$23.000 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%201060%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Paso 3: Contacto / Medios de Pago -->
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">3</span>
+                <h3>Medios de pago aceptados</h3>
+            </div>
+            <div class="payment-methods">
+                <span class="pay-tag">Mercado Pago</span>
+                <span class="pay-tag">Transferencia Bancaria</span>
+                <span class="pay-tag">Efectivo (RapiPago / PagoFácil)</span>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© Tienda de Recargas Independiente. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Reproductor de Música -->
+    <audio id="musica-fondo" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Botón Flotante para Reproducir/Pausar -->
+    <button id="btn-musica" class="btn-musica-flotante" onclick="toggleMusica()">
+        <img src="disco.jpg" id="imagen-disco" alt="Disco de Música">
+        <i id="icono-musica" class="fa-solid fa-play"></i>
+    </button>
+
+    <!-- Lógica JavaScript para Carrusel y Reproductor de Audio -->
+    <script>
+        /* Lógica de Música */
+        function toggleMusica() {
+            var audio = document.getElementById("musica-fondo");
+            var icono = document.getElementById("icono-musica");
+            var boton = document.getElementById("btn-musica");
+
+            if (audio.paused) {
+                audio.play().then(function() {
+                    icono.className = "fa-solid fa-pause";
+                    boton.classList.add("reproduciendo");
+                }).catch(function(error) {
+                    console.log("Error al reproducir audio: ", error);
+                });
+            } else {
+                audio.pause();
+                icono.className = "fa-solid fa-play";
+                boton.classList.remove("reproduciendo");
+            }
+        }
+
+        /* Lógica del Carrusel (Cambio automático cada 3 segundos) */
+        let slideActual = 0;
+        const totalSlides = 4;
+        let autoSlideTimer = null;
+
+        function actualizarCarrusel() {
+            const track = document.getElementById('carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === slideActual) {
+                    slide.classList.add('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideActual);
+            });
+
+            const offset = -slideActual * 82;
+            track.style.transform = `translateX(${offset}%)`;
+        }
+
+        function moverCarrusel(direccion) {
+            slideActual += direccion;
+            if (slideActual >= totalSlides) {
+                slideActual = 0;
+            } else if (slideActual < 0) {
+                slideActual = totalSlides - 1;
+            }
+            actualizarCarrusel();
+            reiniciarTimer();
+        }
+
+        function irASlide(index) {
+            slideActual = index;
+            actualizarCarrusel();
+            reiniciarTimer();
+        }
+
+        function iniciarTimer() {
+            autoSlideTimer = setInterval(() => {
+                moverCarrusel(1);
+            }, 4000);
+        }
+
+        function reiniciarTimer() {
+            clearInterval(autoSlideTimer);
+            iniciarTimer();
+        }
+
+        window.onload = function() {
+            actualizarCarrusel();
+            iniciarTimer();
+        };
+    </script>
+
+</body>
+</html>

@@ -10,21 +10,56 @@ body {
     background-color: #12131a;
     color: #ffffff;
     padding-bottom: 40px;
+    overflow-x: hidden;
 }
 
-/* --- ENCABEZADO --- */
+/* --- ENCABEZADO / NAVBAR --- */
 .navbar {
     background-color: #1a1c24;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 12px 20px;
     border-bottom: 2px solid #e50914;
+    position: relative;
+    z-index: 100;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Ícono Circular con 3 rayitas */
+.menu-toggle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #26293b;
+    border: 1px solid #3a3f58;
+    color: #ffffff;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-toggle-btn:hover {
+    background-color: #e50914;
+    border-color: #e50914;
+    transform: scale(1.05);
 }
 
 .logo {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .garena-red {
@@ -32,11 +67,208 @@ body {
 }
 
 .region {
-    font-size: 0.85rem;
-    color: #aaa;
+    font-size: 0.9rem;
+    color: #ffffff;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
 }
 
-/* --- SECCIÓN HERO CON FONDO Y CARRUSEL 3D / COVERFLOW DE 5 BANNERS --- */
+/* --- MENÚ DESPLEGABLE LATERAL (SIDEBAR) --- */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    background-color: #161822;
+    z-index: 999;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    transition: left 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    border-right: 1px solid #2a2d3d;
+}
+
+.sidebar-menu.open {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    background-color: #1a1c24;
+    border-bottom: 1px solid #2a2d3d;
+}
+
+.sidebar-logo {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.close-menu-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-menu-btn:hover {
+    color: #e50914;
+}
+
+.sidebar-content {
+    padding: 18px;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tarjeta de Monedero dentro del Menú */
+.sidebar-card {
+    background-color: #202333;
+    border: 1px solid #3a3f58;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.wallet-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e50914;
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.wallet-id {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 6px;
+}
+
+.wallet-balance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    padding-top: 6px;
+    border-top: 1px dashed #3a3f58;
+}
+
+.balance-text {
+    color: #4caf50;
+    font-size: 1rem;
+}
+
+.sidebar-section h4 {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1e202d;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #2a2d3d;
+    transition: all 0.2s;
+}
+
+.menu-link:hover {
+    background-color: #26293b;
+    border-color: #e50914;
+}
+
+.whatsapp-link {
+    color: #25d366;
+    border-color: rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-link:hover {
+    background-color: rgba(37, 211, 102, 0.1);
+    border-color: #25d366;
+}
+
+.info-badge-box {
+    margin-top: 8px;
+    background-color: rgba(229, 9, 20, 0.08);
+    border: 1px solid rgba(229, 9, 20, 0.2);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.8rem;
+    color: #ddd;
+    line-height: 1.4;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #ccc;
+    background-color: #1e202d;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.status-dot.online {
+    width: 10px;
+    height: 10px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #4caf50;
+}
+
+.sidebar-footer {
+    padding: 15px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #666;
+    border-top: 1px solid #2a2d3d;
+}
+
+/* --- SECCIÓN HERO CON FONDO Y CARRUSEL 3D / COVERFLOW --- */
 .hero-banner-section {
     position: relative;
     width: 100%;
@@ -49,7 +281,6 @@ body {
     background-repeat: no-repeat;
     overflow: hidden;
     margin-bottom: 15px;
-    border-bottom: none; 
 }
 
 .carousel-wrapper {
@@ -98,7 +329,6 @@ body {
     pointer-events: none;
 }
 
-/* Banner Central Destacado */
 .carousel-slide.active {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -108,7 +338,6 @@ body {
     pointer-events: auto;
 }
 
-/* Banners Costados (Semitransparentes y más pequeños) */
 .carousel-slide.prev {
     opacity: 0.45;
     transform: translateX(-55%) scale(0.8);
@@ -134,7 +363,6 @@ body {
     display: block;
 }
 
-/* Botones de navegación prev / next */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -162,7 +390,6 @@ body {
 .prev-btn { left: 10px; }
 .next-btn { right: 10px; }
 
-/* Puntitos indicadores abajo */
 .carousel-dots {
     display: flex;
     justify-content: center;
@@ -219,7 +446,7 @@ body {
     font-weight: bold;
 }
 
-/* --- MÓDULO SUPABASE (LOGIN Y SALDO) --- */
+/* --- MÓDULO SUPABASE --- */
 .auth-card {
     border: 1px solid #e50914;
     box-shadow: 0 0 15px rgba(229, 9, 20, 0.15);
@@ -248,11 +475,7 @@ body {
     transition: background 0.2s;
 }
 
-.btn-login {
-    background-color: #e50914;
-    color: white;
-}
-
+.btn-login { background-color: #e50914; color: white; }
 .btn-login:hover { background-color: #b20610; }
 
 .btn-register {
@@ -260,7 +483,6 @@ body {
     color: white;
     border: 1px solid #3a3f58;
 }
-
 .btn-register:hover { background-color: #343850; }
 
 .dashboard-header {
@@ -321,7 +543,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* Inputs */
 .input-group input {
     width: 100%;
     padding: 12px;
@@ -333,9 +554,7 @@ body {
     outline: none;
 }
 
-.input-group input:focus {
-    border-color: #e50914;
-}
+.input-group input:focus { border-color: #e50914; }
 
 .subtext {
     font-size: 0.8rem;
@@ -343,7 +562,6 @@ body {
     margin-top: 8px;
 }
 
-/* Grid de Diamantes */
 .grid-diamonds {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -386,7 +604,6 @@ body {
 
 .btn-buy:hover { background-color: #b20610; }
 
-/* Métodos de Pago */
 .payment-methods {
     display: flex;
     flex-wrap: wrap;
@@ -421,14 +638,13 @@ footer {
     padding: 0;
     cursor: pointer;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
-    z-index: 1000;
+    z-index: 900;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
 }
 
 .btn-musica-flotante:hover {
@@ -474,10 +690,10 @@ footer {
     to { transform: rotate(360deg); }
 }
 
-/* --- ADAPTACIÓN RESPONSIVA EN MÓVILES --- */
+/* --- ADAPTACIÓN RESPONSIVA EN MÓVILES Y PC --- */
 @media (max-width: 600px) {
     .carousel-track-container {
-        height: 160px; /* Banners más rectangulares y estilizados en celulares */
+        height: 160px;
     }
     
     .carousel-slide {
@@ -486,4 +702,9 @@ footer {
 
     .carousel-slide.prev { transform: translateX(-45%) scale(0.8); }
     .carousel-slide.next { transform: translateX(45%) scale(0.8); }
+
+    .region {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
 }

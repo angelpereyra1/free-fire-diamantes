@@ -15,13 +15,79 @@
 
     <!-- Encabezado / Navbar -->
     <header class="navbar">
-        <div class="logo">
-            <span class="garena-red">🔥 RECARGAS</span> FF
+        <div class="nav-left">
+            <button class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="logo">
+                RECARGAS <span class="garena-red">FF</span> 🔥
+            </div>
         </div>
         <div class="region">
             🇦🇷 Argentina | ES
         </div>
     </header>
+
+    <!-- Menú Desplegable Lateral (Sidebar) -->
+    <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <aside class="sidebar-menu" id="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                RECARGAS <span class="garena-red">FF</span> 🔥
+            </div>
+            <button class="close-menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-content">
+            <!-- Tarjeta Monedero / Revendedor -->
+            <div class="sidebar-card user-wallet-box">
+                <div class="wallet-header">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Monedero Virtual</span>
+                </div>
+                <div class="wallet-id">ID Monedero: <strong id="menu-wallet-id">#REV-84920</strong></div>
+                <div class="wallet-balance-row">
+                    <span>Saldo Disponible:</span>
+                    <strong class="balance-text" id="menu-wallet-balance">$0 ARS</strong>
+                </div>
+            </div>
+
+            <!-- Accesos e Info Revendedores -->
+            <div class="sidebar-section">
+                <h4><i class="fa-solid fa-user-gear"></i> Revendedores</h4>
+                <a href="#auth-section" class="menu-link" onclick="toggleMenu()">
+                    <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión / Registro
+                </a>
+                <div class="info-badge-box">
+                    <p><strong> Beneficios Revendedor:</strong> Accedé a precios mayoristas con acreditación automática en segundos.</p>
+                </div>
+            </div>
+
+            <!-- Ayuda y Contacto -->
+            <div class="sidebar-section">
+                <h4><i class="fa-solid fa-headset"></i> Soporte & Contacto</h4>
+                <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Tengo%20una%20consulta%20sobre%20las%20recargas." target="_blank" class="menu-link whatsapp-link">
+                    <i class="fa-brands fa-whatsapp"></i> Atención por WhatsApp
+                </a>
+            </div>
+
+            <!-- Estado de la Página -->
+            <div class="sidebar-section">
+                <h4><i class="fa-solid fa-circle-info"></i> Estado del Sistema</h4>
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span>Servidores de Recarga: <b>ONLINE</b></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <p>© Centro de Recargas FF - Argentina</p>
+        </div>
+    </aside>
 
     <!-- Sección Hero con Fondo Estático y Carrusel de 5 Banners -->
     <section class="hero-banner-section">
@@ -95,7 +161,7 @@
                 </div>
             </div>
 
-            <!-- Vista de Panel con Saldo Disponible (Oculto por defecto hasta loguearse) -->
+            <!-- Vista de Panel con Saldo Disponible -->
             <div id="user-dashboard" class="dashboard-box" style="display: none;">
                 <div class="dashboard-header">
                     <span>Bienvenido, <b id="user-email-display">revendedor@freefire.com</b></span>
@@ -198,6 +264,14 @@
 
     <!-- Scripts JavaScript -->
     <script>
+        /* --- Abrir/Cerrar Menú Lateral --- */
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar-menu');
+            const overlay = document.getElementById('menu-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
         /* --- Lógica de Música --- */
         function toggleMusica() {
             var audio = document.getElementById("musica-fondo");
@@ -219,7 +293,7 @@
         }
 
         /* --- Lógica del Carrusel de 5 Banners Coverflow --- */
-        let slideActual = 2; // Iniciar en el centro (índice 2)
+        let slideActual = 2; // Iniciar en el centro
         const totalSlides = 5;
         let autoSlideTimer = null;
 
@@ -274,7 +348,7 @@
             iniciarTimer();
         }
 
-        /* --- Soporte Gestos Táctiles (Swipe) para Celulares --- */
+        /* --- Gestos Táctiles (Swipe) --- */
         let startX = 0;
         let endX = 0;
         const carouselWrapper = document.getElementById('carousel-wrapper');
@@ -290,16 +364,16 @@
 
         function handleSwipe() {
             const diff = startX - endX;
-            if (Math.abs(diff) > 40) { // Umbral mínimo de movimiento
+            if (Math.abs(diff) > 40) {
                 if (diff > 0) {
-                    moverCarrusel(1);  // Deslizar izquierda -> Siguiente
+                    moverCarrusel(1);
                 } else {
-                    moverCarrusel(-1); // Deslizar derecha -> Anterior
+                    moverCarrusel(-1);
                 }
             }
         }
 
-        /* --- Funciones Simuladas para Supabase UI --- */
+        /* --- Funciones Simuladas Supabase UI --- */
         function iniciarSesionSimulado() {
             const email = document.getElementById('auth-email').value;
             if(!email) { alert("Ingresá un correo electrónico"); return; }

@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro de Recargas - Free Fire</title>
-    
-    <!-- Enlace para iconos FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Enlace a la hoja de estilos externa -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Encabezado / Navbar -->
     <header class="navbar">
         <div class="nav-left">
             <button class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
@@ -28,7 +23,6 @@
         </div>
     </header>
 
-    <!-- Menú Desplegable Lateral (Sidebar) -->
     <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
     
     <aside class="sidebar-menu" id="sidebar-menu">
@@ -42,7 +36,6 @@
         </div>
 
         <div class="sidebar-content">
-            <!-- Tarjeta Monedero / Revendedor -->
             <div class="sidebar-card user-wallet-box">
                 <div class="wallet-header">
                     <i class="fa-solid fa-wallet"></i>
@@ -55,18 +48,16 @@
                 </div>
             </div>
 
-            <!-- Accesos e Info Revendedores -->
             <div class="sidebar-section">
                 <h4><i class="fa-solid fa-user-gear"></i> Revendedores</h4>
                 <a href="#auth-section" class="menu-link" onclick="toggleMenu()">
                     <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión / Registro
                 </a>
                 <div class="info-badge-box">
-                    <p><strong> Beneficios Revendedor:</strong> Accedé a precios mayoristas con acreditación automática en segundos.</p>
+                    <p><strong>Beneficios Revendedor:</strong> Accedé a precios mayoristas con acreditación automática en segundos.</p>
                 </div>
             </div>
 
-            <!-- Ayuda y Contacto -->
             <div class="sidebar-section">
                 <h4><i class="fa-solid fa-headset"></i> Soporte & Contacto</h4>
                 <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Tengo%20una%20consulta%20sobre%20las%20recargas." target="_blank" class="menu-link whatsapp-link">
@@ -74,7 +65,6 @@
                 </a>
             </div>
 
-            <!-- Estado de la Página -->
             <div class="sidebar-section">
                 <h4><i class="fa-solid fa-circle-info"></i> Estado del Sistema</h4>
                 <div class="status-indicator">
@@ -89,7 +79,6 @@
         </div>
     </aside>
 
-    <!-- Sección Hero con Fondo Estático y Carrusel de 5 Banners -->
     <section class="hero-banner-section">
         <div class="carousel-wrapper" id="carousel-wrapper">
             <button class="carousel-btn prev-btn" onclick="moverCarrusel(-1)">
@@ -98,23 +87,18 @@
 
             <div class="carousel-track-container">
                 <div class="carousel-track" id="carousel-track">
-                    <!-- Banner 1 -->
                     <div class="carousel-slide">
                         <img src="banner1.jpg" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop'" alt="Promoción 1">
                     </div>
-                    <!-- Banner 2 -->
                     <div class="carousel-slide">
                         <img src="banner2.jpg" onerror="this.src='https://i.supaimg.com/d720aa86-6d33-4180-8339-caf8d59e6a66/c4716906-2102-4bfb-9b7f-e0b5c5b33502.jpg'" alt="Promoción 2">
                     </div>
-                    <!-- Banner 3 -->
                     <div class="carousel-slide">
                         <img src="banner3.jpg" onerror="this.src='https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=800&auto=format&fit=crop'" alt="Promoción 3">
                     </div>
-                    <!-- Banner 4 -->
                     <div class="carousel-slide">
                         <img src="banner4.gif" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop'" alt="Promoción 4">
                     </div>
-                    <!-- Banner 5 -->
                     <div class="carousel-slide">
                         <img src="banner5.jpg" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop'" alt="Promoción 5">
                     </div>
@@ -126,7 +110,6 @@
             </button>
         </div>
 
-        <!-- Indicadores (Puntitos abajo) -->
         <div class="carousel-dots" id="carousel-dots">
             <span class="dot" onclick="irASlide(0)"></span>
             <span class="dot" onclick="irASlide(1)"></span>
@@ -136,17 +119,74 @@
         </div>
     </section>
 
-    <!-- Contenedor Principal -->
     <div class="container">
 
-        <!-- Módulo de Supabase: Sistema de Login & Monedero Virtual -->
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">1</span>
+                <h3>Ingresar ID de jugador</h3>
+            </div>
+            <div class="input-group">
+                <input type="text" placeholder="Introduce el ID del jugador..." id="player-id">
+            </div>
+            <p class="subtext">⚠️ Verificá bien tu ID antes de enviar el pedido.</p>
+        </section>
+
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">2</span>
+                <h3>Monto de recarga</h3>
+            </div>
+
+            <div class="grid-diamonds">
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>100 Diamantes</h4>
+                    <p class="price">$2.500 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20100%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '100 Diamantes', '$2.500 ARS')">Pedir por WhatsApp</a>
+                </div>
+
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>310 Diamantes</h4>
+                    <p class="price">$7.500 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20310%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '310 Diamantes', '$7.500 ARS')">Pedir por WhatsApp</a>
+                </div>
+
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>520 Diamantes</h4>
+                    <p class="price">$12.000 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20520%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '520 Diamantes', '$12.000 ARS')">Pedir por WhatsApp</a>
+                </div>
+
+                <div class="diamond-box">
+                    <span class="icon">💎</span>
+                    <h4>1.060 Diamantes</h4>
+                    <p class="price">$23.000 ARS</p>
+                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%201060%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '1.060 Diamantes', '$23.000 ARS')">Pedir por WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="step-title">
+                <span class="badge">3</span>
+                <h3>Medios de pago aceptados</h3>
+            </div>
+            <div class="payment-methods">
+                <span class="pay-tag">Mercado Pago</span>
+                <span class="pay-tag">Transferencia Bancaria</span>
+                <span class="pay-tag">Efectivo (RapiPago / PagoFácil)</span>
+            </div>
+        </section>
+
         <section class="card auth-card" id="auth-section">
             <div class="step-title">
                 <span class="badge"><i class="fa-solid fa-user-gear"></i></span>
                 <h3>Cuenta de Revendedor</h3>
             </div>
             
-            <!-- Vista de Login / Registro -->
             <div id="auth-forms" class="auth-box">
                 <p class="auth-desc">Iniciá sesión para usar tu saldo o recargar tu monedero mayorista.</p>
                 <div class="input-group">
@@ -161,7 +201,6 @@
                 </div>
             </div>
 
-            <!-- Vista de Panel con Saldo Disponible -->
             <div id="user-dashboard" class="dashboard-box" style="display: none;">
                 <div class="dashboard-header">
                     <span>Bienvenido, <b id="user-email-display">revendedor@freefire.com</b></span>
@@ -178,93 +217,22 @@
             </div>
         </section>
 
-        <!-- Paso 1: Ingreso de ID -->
-        <section class="card">
-            <div class="step-title">
-                <span class="badge">1</span>
-                <h3>Ingresar ID de jugador</h3>
-            </div>
-            <div class="input-group">
-                <input type="text" placeholder="Introduce el ID del jugador..." id="player-id">
-            </div>
-            <p class="subtext">⚠️ Verificá bien tu ID antes de enviar el pedido.</p>
-        </section>
-
-        <!-- Paso 2: Selección de Paquetes -->
-        <section class="card">
-            <div class="step-title">
-                <span class="badge">2</span>
-                <h3>Monto de recarga</h3>
-            </div>
-
-            <div class="grid-diamonds">
-                <!-- Paquete 1 -->
-                <div class="diamond-box">
-                    <span class="icon">💎</span>
-                    <h4>100 Diamantes</h4>
-                    <p class="price">$2.500 ARS</p>
-                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20100%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
-                </div>
-
-                <!-- Paquete 2 -->
-                <div class="diamond-box">
-                    <span class="icon">💎</span>
-                    <h4>310 Diamantes</h4>
-                    <p class="price">$7.500 ARS</p>
-                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20310%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
-                </div>
-
-                <!-- Paquete 3 -->
-                <div class="diamond-box">
-                    <span class="icon">💎</span>
-                    <h4>520 Diamantes</h4>
-                    <p class="price">$12.000 ARS</p>
-                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20520%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
-                </div>
-
-                <!-- Paquete 4 -->
-                <div class="diamond-box">
-                    <span class="icon">💎</span>
-                    <h4>1.060 Diamantes</h4>
-                    <p class="price">$23.000 ARS</p>
-                    <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%201060%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy">Pedir por WhatsApp</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Paso 3: Contacto / Medios de Pago -->
-        <section class="card">
-            <div class="step-title">
-                <span class="badge">3</span>
-                <h3>Medios de pago aceptados</h3>
-            </div>
-            <div class="payment-methods">
-                <span class="pay-tag">Mercado Pago</span>
-                <span class="pay-tag">Transferencia Bancaria</span>
-                <span class="pay-tag">Efectivo (RapiPago / PagoFácil)</span>
-            </div>
-        </section>
-
     </div>
 
     <footer>
         <p>© Tienda de Recargas Independiente. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Reproductor de Música -->
     <audio id="musica-fondo" loop preload="auto">
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Botón Flotante para Reproducir/Pausar -->
     <button id="btn-musica" class="btn-musica-flotante" onclick="toggleMusica()">
         <img src="disco.jpg" id="imagen-disco" alt="Disco de Música">
         <i id="icono-musica" class="fa-solid fa-play"></i>
     </button>
 
-    <!-- Scripts JavaScript -->
     <script>
-        /* --- Abrir/Cerrar Menú Lateral --- */
         function toggleMenu() {
             const sidebar = document.getElementById('sidebar-menu');
             const overlay = document.getElementById('menu-overlay');
@@ -272,7 +240,6 @@
             overlay.classList.toggle('open');
         }
 
-        /* --- Lógica de Música --- */
         function toggleMusica() {
             var audio = document.getElementById("musica-fondo");
             var icono = document.getElementById("icono-musica");
@@ -292,8 +259,16 @@
             }
         }
 
-        /* --- Lógica del Carrusel de 5 Banners Coverflow --- */
-        let slideActual = 2; // Iniciar en el centro
+        function actualizarEnlaceWhatsApp(elem, paquete, precio) {
+            const idPlayer = document.getElementById('player-id').value.trim();
+            let msg = `Hola! Quiero comprar ${paquete} (${precio}).`;
+            if (idPlayer) {
+                msg += ` Mi ID de Jugador es: ${idPlayer}`;
+            }
+            elem.href = `https://wa.me/54911XXXXXXXX?text=${encodeURIComponent(msg)}`;
+        }
+
+        let slideActual = 2;
         const totalSlides = 5;
         let autoSlideTimer = null;
 
@@ -348,7 +323,6 @@
             iniciarTimer();
         }
 
-        /* --- Gestos Táctiles (Swipe) --- */
         let startX = 0;
         let endX = 0;
         const carouselWrapper = document.getElementById('carousel-wrapper');
@@ -373,7 +347,6 @@
             }
         }
 
-        /* --- Funciones Simuladas Supabase UI --- */
         function iniciarSesionSimulado() {
             const email = document.getElementById('auth-email').value;
             if(!email) { alert("Ingresá un correo electrónico"); return; }

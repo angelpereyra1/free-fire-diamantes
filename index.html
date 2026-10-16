@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Centro de recargas de diamantes para Free Fire. Recarga rápida, saldo virtual y atención por WhatsApp en Argentina.">
   <title>Centro de Recargas - Free Fire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-<meta name="google-site-verification" content="H7XHUmous89UHECuaWxAuyuyqSOYfg34MMWn52pTlCU" />
 </head>
 <body>
 
   <header class="navbar">
     <div class="nav-left">
-      <button class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
+      <button type="button" class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="logo">
@@ -25,13 +28,13 @@
   </header>
 
   <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
-  
+
   <aside class="sidebar-menu" id="sidebar-menu">
     <div class="sidebar-header">
       <div class="sidebar-logo">
         RECARGAS <span class="garena-red">FF</span> 🔥
       </div>
-      <button class="close-menu-btn" onclick="toggleMenu()">
+      <button type="button" class="close-menu-btn" onclick="toggleMenu()">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -81,14 +84,20 @@
   </aside>
 
   <section class="hero-banner-section">
-    <!-- Contador sin fondo negro -->
+    <div class="hero-overlay">
+      <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Recarga express</span>
+      <h1 class="hero-title">RECARGAS <span class="garena-red">FF</span></h1>
+      <p class="hero-subtitle">Diamantes, saldo y beneficios al instante. La forma rápida de recargar en Free Fire.</p>
+    </div>
+
+    <!-- Contador de clientes conectados en tiempo real -->
     <div class="live-counter-badge">
       <span class="live-green-dot"></span>
       <span class="live-counter-text"><strong id="online-count">148</strong> Clientes Online</span>
     </div>
 
     <div class="carousel-wrapper" id="carousel-wrapper">
-      <button class="carousel-btn prev-btn" onclick="moverCarrusel(-1)" aria-label="Anterior">
+      <button type="button" class="carousel-btn prev-btn" onclick="moverCarrusel(-1)" aria-label="Anterior">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
 
@@ -112,7 +121,7 @@
         </div>
       </div>
 
-      <button class="carousel-btn next-btn" onclick="moverCarrusel(1)" aria-label="Siguiente">
+      <button type="button" class="carousel-btn next-btn" onclick="moverCarrusel(1)" aria-label="Siguiente">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
@@ -193,7 +202,7 @@
         <span class="badge"><i class="fa-solid fa-user-gear"></i></span>
         <h3>Cuenta de Revendedor</h3>
       </div>
-      
+
       <div id="auth-forms" class="auth-box">
         <p class="auth-desc">Iniciá sesión para usar tu saldo o recargar tu monedero mayorista.</p>
         <div class="input-group">
@@ -203,15 +212,15 @@
           <input type="password" id="auth-password" placeholder="Contraseña...">
         </div>
         <div class="auth-buttons">
-          <button class="btn-auth btn-login" onclick="iniciarSesionSimulado()">Iniciar Sesión</button>
-          <button class="btn-auth btn-register" onclick="registrarseSimulado()">Registrarse</button>
+          <button type="button" class="btn-auth btn-login" onclick="iniciarSesionSimulado()">Iniciar Sesión</button>
+          <button type="button" class="btn-auth btn-register" onclick="registrarseSimulado()">Registrarse</button>
         </div>
       </div>
 
       <div id="user-dashboard" class="dashboard-box" style="display: none;">
         <div class="dashboard-header">
           <span>Bienvenido, <b id="user-email-display">revendedor@freefire.com</b></span>
-          <button class="btn-logout" onclick="cerrarSesionSimulado()">Cerrar Sesión</button>
+          <button type="button" class="btn-logout" onclick="cerrarSesionSimulado()">Cerrar Sesión</button>
         </div>
         <div class="wallet-card">
           <span class="wallet-label">Tu Saldo Virtual</span>
@@ -249,7 +258,7 @@
         <div class="input-group" style="margin-top: 10px;">
           <textarea id="comment-text" placeholder="Escribí tu experiencia con la recarga de diamantes..." rows="3"></textarea>
         </div>
-        <button class="btn-submit-comment" onclick="agregarComentario()">
+        <button type="button" class="btn-submit-comment" onclick="agregarComentario()">
           <i class="fa-solid fa-paper-plane"></i> Publicar Comentario
         </button>
       </div>
@@ -287,7 +296,8 @@
   </div>
 
   <footer>
-    <p>© Tienda de Recargas Independiente. Todos los derechos reservados.</p>
+    <p>© Centro de Recargas FF - Argentina. Todos los derechos reservados.</p>
+    <p class="footer-sub">Recargas rápidas, atención por WhatsApp y acreditación instantánea.</p>
   </footer>
 
   <!-- Audio -->

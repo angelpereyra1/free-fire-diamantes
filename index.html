@@ -3,27 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Centro de recargas de diamantes para Free Fire. Recarga rápida, saldo virtual y atención por WhatsApp en Argentina.">
   <title>Centro de Recargas - Free Fire</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+
+  <!-- ESTILOS DEL VERIFICADOR DE ID -->
+  <style>
+    .verify-row { display: flex; gap: 10px; align-items: stretch; }
+    .verify-row input { flex: 1; min-width: 0; }
+    .btn-verificar {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0 18px; border: none; border-radius: 12px; cursor: pointer;
+      font-weight: 700; font-size: 14px; color: #ffffff; white-space: nowrap;
+      background: linear-gradient(135deg, #ff3b3b, #ff7a18);
+      box-shadow: 0 4px 14px rgba(255, 40, 40, 0.568);
+      transition: transform .15s ease, opacity .15s ease;
+    }
+    .btn-verificar:hover { transform: translateY(-1px); }
+    .btn-verificar:disabled { opacity: .7; cursor: wait; transform: none; }
+
+    .player-card {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 12px; padding: 12px 14px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(46, 154, 204, 0.349), rgba(46, 204, 113, .05));
+      border: 1px solid rgba(46, 204, 113, .6);
+      animation: aparecer .35s ease;
+      position: relative; overflow: hidden; min-height: 76px;
+      background-size: cover; background-position: center;
+    }
+    .player-card.con-banner {
+      background-image: linear-gradient(90deg, rgba(10, 12, 20, .55), rgba(10, 12, 20, .25)), var(--banner);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .9);
+    }
+    .player-card > * { position: relative; z-index: 1; }
+    .player-card[hidden] { display: none; }
+    .player-avatar {
+      width: 56px; height: 56px; border-radius: 10px; flex-shrink: 0; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #ff3b3b, #ff7a18); color: #fff; font-size: 22px;
+      border: 2px solid rgba(255, 255, 255, .85); box-shadow: 0 2px 8px rgba(0, 0, 0, .6);
+    }
+    .player-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .player-avatar img[hidden] { display: none !important; }
+    .player-avatar.con-img { background: none; }
+    .player-avatar.con-img i { display: none !important; }
+    .player-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+    .player-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: .7; }
+    .player-name { font-size: 18px; line-height: 1.25; word-break: break-word; }
+    .player-meta { font-size: 12px; opacity: .8; }
+    .player-ok { color: #2ecc71; font-size: 22px; }
+
+    .verify-status { margin: 8px 0 0; font-size: 13px; min-height: 18px; }
+    .verify-status.ok { color: #2ecc70; }
+    .verify-status.error { color: #ff5c5c; }
+    .verify-status.loading { color: #f3ba2f; }
+
+    @keyframes aparecer { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    @media (max-width: 480px) {
+      .btn-verificar span { display: none; }
+      .btn-verificar { padding: 0 14px; }
+    }
+  </style>
 </head>
 <body>
 
   <header class="navbar">
     <div class="nav-left">
-      <button type="button" class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
+      <button class="menu-toggle-btn" onclick="toggleMenu()" aria-label="Abrir Menú">
         <i class="fa-solid fa-bars"></i>
       </button>
       <div class="logo">
-        RECARGAS <span class="garena-red">FF</span> 🔥
+        Zarela <span class="garena-red"></span> 🔥
       </div>
     </div>
-    <div class="region">
-      🇦🇷 Argentina | ES
+    <div class="header-right-group">
+      <div class="region">🇦🇷 Argentina | ES</div>
+      <div class="saldo-usd-badge"><i class="fa-solid fa-wallet"></i> SALDO USD</div>
     </div>
   </header>
 
@@ -31,20 +86,13 @@
 
   <aside class="sidebar-menu" id="sidebar-menu">
     <div class="sidebar-header">
-      <div class="sidebar-logo">
-        RECARGAS <span class="garena-red">FF</span> 🔥
-      </div>
-      <button type="button" class="close-menu-btn" onclick="toggleMenu()">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <div class="sidebar-logo">Zarela <span class="garena-red"></span> </div>
+      <button class="close-menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
     <div class="sidebar-content">
       <div class="sidebar-card user-wallet-box">
-        <div class="wallet-header">
-          <i class="fa-solid fa-wallet"></i>
-          <span>Monedero Virtual</span>
-        </div>
+        <div class="wallet-header"><i class="fa-solid fa-wallet"></i><span>billetera Virtual</span></div>
         <div class="wallet-id">ID Monedero: <strong id="menu-wallet-id">#REV-84920</strong></div>
         <div class="wallet-balance-row">
           <span>Saldo Disponible:</span>
@@ -78,26 +126,17 @@
       </div>
     </div>
 
-    <div class="sidebar-footer">
-      <p>© Centro de Recargas FF - Argentina</p>
-    </div>
+    <div class="sidebar-footer"><p>© Centro de Recargas FF - Argentina</p></div>
   </aside>
 
   <section class="hero-banner-section">
-    <div class="hero-overlay">
-      <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Recarga express</span>
-      <h1 class="hero-title">RECARGAS <span class="garena-red">FF</span></h1>
-      <p class="hero-subtitle">Diamantes, saldo y beneficios al instante. La forma rápida de recargar en Free Fire.</p>
-    </div>
-
-    <!-- Contador de clientes conectados en tiempo real -->
     <div class="live-counter-badge">
       <span class="live-green-dot"></span>
       <span class="live-counter-text"><strong id="online-count">148</strong> Clientes Online</span>
     </div>
 
     <div class="carousel-wrapper" id="carousel-wrapper">
-      <button type="button" class="carousel-btn prev-btn" onclick="moverCarrusel(-1)" aria-label="Anterior">
+      <button class="carousel-btn prev-btn" onclick="moverCarrusel(-1)" aria-label="Anterior">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
 
@@ -121,7 +160,7 @@
         </div>
       </div>
 
-      <button type="button" class="carousel-btn next-btn" onclick="moverCarrusel(1)" aria-label="Siguiente">
+      <button class="carousel-btn next-btn" onclick="moverCarrusel(1)" aria-label="Siguiente">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
@@ -137,50 +176,164 @@
 
   <div class="container">
 
-    <section class="card">
-      <div class="step-title">
-        <span class="badge">1</span>
-        <h3>Ingresar ID de jugador</h3>
-      </div>
-      <div class="input-group">
-        <input type="text" placeholder="Introduce el ID del jugador..." id="player-id">
-      </div>
-      <p class="subtext">⚠️️ Verificá bien tu ID antes de enviar el pedido.</p>
-    </section>
+    <!-- GRILLA PRINCIPAL EN 2 COLUMNAS -->
+    <div class="main-layout-grid">
 
-    <section class="card">
-      <div class="step-title">
-        <span class="badge">2</span>
-        <h3>Monto de recarga</h3>
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="left-content-col">
+        <section class="card">
+          <div class="step-title">
+            <span class="badge">1</span>
+            <h3>Ingresar ID de jugador</h3>
+          </div>
+
+          <!-- TARJETA DEL JUGADOR (aparece arriba del ID al verificar) -->
+          <div id="player-card" class="player-card" hidden>
+            <div class="player-avatar"><img id="player-avatar-img" alt="Avatar" hidden><i id="player-avatar-icon" class="fa-solid fa-user-astronaut"></i></div>
+            <div class="player-info">
+              <span class="player-label">Jugador verificado</span>
+              <strong id="player-name" class="player-name"></strong>
+              <span id="player-meta" class="player-meta"></span>
+            </div>
+            <i class="fa-solid fa-circle-check player-ok"></i>
+          </div>
+
+          <div class="input-group verify-row">
+            <input type="text" inputmode="numeric" autocomplete="off" placeholder="Introduce el ID del jugador..." id="player-id">
+            <button type="button" id="btn-verificar" class="btn-verificar" onclick="verificarJugador()">
+              <i class="fa-solid fa-magnifying-glass"></i> <span>Verificar</span>
+            </button>
+          </div>
+          <p id="verify-status" class="verify-status"></p>
+          <p class="subtext">⚠️ Verificá bien tu ID antes de enviar el pedido.</p>
+        </section>
+
+        <section class="card">
+          <div class="step-title">
+            <span class="badge">2</span>
+            <h3>Monto de recarga</h3>
+          </div>
+
+          <div class="grid-diamonds">
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>110 Diamantes</h4> 
+              <p class="price">ARS $1.463</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '110 Diamantes', 'ARS $7.463')">mercado pago
+              </a>
+            </div>
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>341 Diamantes</h4>
+              <p class="price">ARS $4.555</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '341 Diamantes', 'ARS $4.555')">mercado pago</a>
+            </div>
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>572 Diamantes</h4>
+              <p class="price">ARS $8.059</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '572 Diamantes', 'ARS $8.059')">mercado pago</a>
+            </div>
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>1.166 Diamantes</h4>
+              <p class="price">ARS $14.690</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '1.166 Diamantes', 'ARS $14.690')">mercado pago</a>
+            </div>
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>2.398 Diamantes</h4>
+              <p class="price">ARS $27.602</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '2.398 Diamantes', 'ARS $27.602')">mercado pago</a>
+            </div>
+            <div class="diamond-box">
+              <span class="icon">💎</span>
+              <h4>6.160 Diamantes</h4>
+              <p class="price">ARS $67.750</p>
+              <a href="#" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '6.160 Diamantes', 'ARS $67.750')">mercado pago</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- COLUMNA DERECHA: CHAT EN VIVO Y BIENVENIDA SAKURA -->
+      <div class="right-widgets-col">
+
+        <div class="chat-widget-card">
+          <div class="chat-widget-header">
+            <span><i class="fa-solid fa-comments"></i> CHAT EN VIVO: ALMA ZARELA</span>
+            <span class="chat-status-dot"></span>
+          </div>
+          <div class="chat-messages-area" id="chat-messages-container">
+            <div class="chat-message admin-msg">HOLA, ¿en qué te puedo ayudar hoy?</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="file" id="chat-file-input" accept="image/*" style="display: none;" onchange="enviarComprobantePC()">
+            <button type="button" class="btn-attach" onclick="document.getElementById('chat-file-input').click()" title="Adjuntar Comprobante">
+              <i class="fa-solid fa-paperclip"></i>
+            </button>
+            <input type="text" id="chat-user-input" placeholder="Escribí tu mensaje aquí..." onkeydown="if(event.key === 'Enter'){ enviarMensajeDirecto(); }">
+            <button type="button" class="btn-send" onclick="enviarMensajeDirecto()" title="Enviar mensaje">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="sakura-welcome-card">
+          <div class="sakura-badge-icon">🌸</div>
+          <h2 class="sakura-title">BIENVENIDOS</h2>
+          <span class="sakura-sub">A</span>
+          <h3 class="sakura-brand">RECARGAS ZARELA</h3>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN PRECIO REVENDEDOR - BINANCE USDT -->
+    <section class="reseller-binance-section">
+      <div class="binance-title-header">
+        <h3 class="reseller-main-title">PRECIO REVENDEDOR</h3>
+        <p class="binance-sub-heading">
+          <span class="binance-brand">BINANCE</span> <span class="usdt-brand">USDT</span>
+        </p>
       </div>
 
       <div class="grid-diamonds">
-        <div class="diamond-box">
+        <div class="diamond-box reseller-box">
           <span class="icon">💎</span>
-          <h4>100 Diamantes</h4>
-          <p class="price">$2.500 ARS</p>
-          <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20100%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '100 Diamantes', '$2.500 ARS')">Pedir por WhatsApp</a>
+          <h4>110 Diamantes</h4>
+          <p class="price usdt-price">USD 0,86</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '110 Diamantes', 'USD 0,86 con Binance USDT')">Comprar USDT</a>
         </div>
-
-        <div class="diamond-box">
+        <div class="diamond-box reseller-box">
           <span class="icon">💎</span>
-          <h4>310 Diamantes</h4>
-          <p class="price">$7.500 ARS</p>
-          <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20310%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '310 Diamantes', '$7.500 ARS')">Pedir por WhatsApp</a>
+          <h4>341 Diamantes</h4>
+          <p class="price usdt-price">USD 2,45</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '341 Diamantes', 'USD 2,45 con Binance USDT')">Comprar USDT</a>
         </div>
-
-        <div class="diamond-box">
+        <div class="diamond-box reseller-box">
           <span class="icon">💎</span>
-          <h4>520 Diamantes</h4>
-          <p class="price">$12.000 ARS</p>
-          <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%20520%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '520 Diamantes', '$12.000 ARS')">Pedir por WhatsApp</a>
+          <h4>572 Diamantes</h4>
+          <p class="price usdt-price">USD 4,16</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '572 Diamantes', 'USD 4,16 con Binance USDT')">Comprar USDT</a>
         </div>
-
-        <div class="diamond-box">
+        <div class="diamond-box reseller-box">
           <span class="icon">💎</span>
-          <h4>1.060 Diamantes</h4>
-          <p class="price">$23.000 ARS</p>
-          <a href="https://wa.me/54911XXXXXXXX?text=Hola!%20Quiero%20comprar%201060%20Diamantes.%20Mi%20ID%20es:" target="_blank" class="btn-buy" onclick="actualizarEnlaceWhatsApp(this, '1.060 Diamantes', '$23.000 ARS')">Pedir por WhatsApp</a>
+          <h4>1.166 Diamantes</h4>
+          <p class="price usdt-price">USD 8,27</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '1.166 Diamantes', 'USD 8,27 con Binance USDT')">Comprar USDT</a>
+        </div>
+        <div class="diamond-box reseller-box">
+          <span class="icon">💎</span>
+          <h4>2.398 Diamantes</h4>
+          <p class="price usdt-price">USD 16,10</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '2.398 Diamantes', 'USD 16,10 con Binance USDT')">Comprar USDT</a>
+        </div>
+        <div class="diamond-box reseller-box">
+          <span class="icon">💎</span>
+          <h4>6.160 Diamantes</h4>
+          <p class="price usdt-price">USD 40,55</p>
+          <a href="#" target="_blank" class="btn-buy btn-usdt" onclick="actualizarEnlaceWhatsApp(this, '6.160 Diamantes', 'USD 40,55 con Binance USDT')">Comprar USDT</a>
         </div>
       </div>
     </section>
@@ -193,34 +346,30 @@
       <div class="payment-methods">
         <span class="pay-tag">Mercado Pago</span>
         <span class="pay-tag">Transferencia Bancaria</span>
-        <span class="pay-tag">Efectivo (RapiPago / PagoFácil)</span>
+        <span class="pay-tag" style="background: rgba(74, 70, 87, 0.26); color: #f3ba2f; border: 1px solid #ceb577;">Binance USDT</span>
       </div>
     </section>
 
     <section class="card auth-card" id="auth-section">
       <div class="step-title">
         <span class="badge"><i class="fa-solid fa-user-gear"></i></span>
-        <h3>Cuenta de Revendedor</h3>
+        <h3>Cuenta Revendedor</h3>
       </div>
 
       <div id="auth-forms" class="auth-box">
         <p class="auth-desc">Iniciá sesión para usar tu saldo o recargar tu monedero mayorista.</p>
-        <div class="input-group">
-          <input type="email" id="auth-email" placeholder="Correo electrónico...">
-        </div>
-        <div class="input-group" style="margin-top: 10px;">
-          <input type="password" id="auth-password" placeholder="Contraseña...">
-        </div>
+        <div class="input-group"><input type="email" id="auth-email" placeholder="Correo electrónico..."></div>
+        <div class="input-group" style="margin-top: 10px;"><input type="password" id="auth-password" placeholder="Contraseña..."></div>
         <div class="auth-buttons">
-          <button type="button" class="btn-auth btn-login" onclick="iniciarSesionSimulado()">Iniciar Sesión</button>
-          <button type="button" class="btn-auth btn-register" onclick="registrarseSimulado()">Registrarse</button>
+          <button class="btn-auth btn-login" onclick="iniciarSesionSimulado()">Iniciar Sesión</button>
+          <button class="btn-auth btn-register" onclick="registrarseSimulado()">Registrarse</button>
         </div>
       </div>
 
       <div id="user-dashboard" class="dashboard-box" style="display: none;">
         <div class="dashboard-header">
           <span>Bienvenido, <b id="user-email-display">revendedor@freefire.com</b></span>
-          <button type="button" class="btn-logout" onclick="cerrarSesionSimulado()">Cerrar Sesión</button>
+          <button class="btn-logout" onclick="cerrarSesionSimulado()">Cerrar Sesión</button>
         </div>
         <div class="wallet-card">
           <span class="wallet-label">Tu Saldo Virtual</span>
@@ -237,58 +386,16 @@
       <div class="step-title">
         <span class="badge"><i class="fa-solid fa-comments"></i></span>
         <h3>Opiniones de Clientes</h3>
-        <span class="rating-overall">⭐ 4.9/5 (1.420+ recargas)</span>
+        <span class="rating-overall">⭐ 4.9/5 (+73.520 recargas)</span>
       </div>
-
-      <div class="add-comment-box">
-        <h4><i class="fa-solid fa-pen-to-square"></i> Dejá tu comentario o reseña</h4>
-        <div class="comment-inputs-row">
-          <div class="input-group">
-            <input type="text" id="comment-author" placeholder="Tu Nombre o Apodo...">
-          </div>
-          <div class="rating-select-group">
-            <label>Calificación:</label>
-            <select id="comment-rating">
-              <option value="5">⭐⭐⭐⭐⭐ (5/5 Excelente)</option>
-              <option value="4">⭐⭐⭐⭐ (4/5 Muy bueno)</option>
-              <option value="3">⭐⭐⭐ (3/5 Bueno)</option>
-            </select>
-          </div>
-        </div>
-        <div class="input-group" style="margin-top: 10px;">
-          <textarea id="comment-text" placeholder="Escribí tu experiencia con la recarga de diamantes..." rows="3"></textarea>
-        </div>
-        <button type="button" class="btn-submit-comment" onclick="agregarComentario()">
-          <i class="fa-solid fa-paper-plane"></i> Publicar Comentario
-        </button>
-      </div>
-
       <div class="comments-list" id="comments-list">
         <div class="comment-item">
           <div class="comment-header">
             <span class="comment-user"><i class="fa-solid fa-circle-user"></i> Matias_FF</span>
             <span class="comment-stars">⭐⭐⭐⭐⭐</span>
-            <span class="comment-time">Hace 5 minutos</span>
+            <span class="comment-time">Hace 3 semanas</span>
           </div>
           <p class="comment-body">10/10 súper rápido! Cargué 520 diamantes con Mercado Pago y llegaron al toque a mi ID 🔥</p>
-        </div>
-
-        <div class="comment-item">
-          <div class="comment-header">
-            <span class="comment-user"><i class="fa-solid fa-circle-user"></i> Lucas_Kratos</span>
-            <span class="comment-stars">⭐⭐⭐⭐⭐</span>
-            <span class="comment-time">Hace 18 minutos</span>
-          </div>
-          <p class="comment-body">Muy confiable la verdad, primera vez que compro acá para el pase de batalla y re bien.</p>
-        </div>
-
-        <div class="comment-item">
-          <div class="comment-header">
-            <span class="comment-user"><i class="fa-solid fa-circle-user"></i> Valen_Gamer</span>
-            <span class="comment-stars">⭐⭐⭐⭐⭐</span>
-            <span class="comment-time">Hace 42 minutos</span>
-          </div>
-          <p class="comment-body">Acreditación instantánea por WhatsApp, recomendado al 100% gente!</p>
         </div>
       </div>
     </section>
@@ -296,59 +403,203 @@
   </div>
 
   <footer>
-    <p>© Centro de Recargas FF - Argentina. Todos los derechos reservados.</p>
-    <p class="footer-sub">Recargas rápidas, atención por WhatsApp y acreditación instantánea.</p>
+    <p>© Tienda de Recargas Independiente. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Audio -->
   <audio id="musica-fondo" loop preload="auto">
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Botón de Música -->
   <button id="btn-musica" class="btn-musica-flotante" onclick="toggleMusica()" aria-label="Reproducir Música">
     <img src="disco.jpg" id="imagen-disco" alt="Disco de Música" onerror="this.style.opacity='0';">
     <i id="icono-musica" class="fa-solid fa-play"></i>
   </button>
 
   <script>
+    /* ===== CONFIGURACIÓN ===== */
+    // URL de producción (funciona cuando el workflow está publicado en n8n).
+    // Para probar sin publicar, usá: https://almazarela.app.n8n.cloud/webhook-test/free-fire-check
+    const N8N_WEBHOOK_URL = 'https://almazarela.app.n8n.cloud/webhook/free-fire-check';
+    const WHATSAPP_NUMERO = '54911XXXXXXXX';
+
+    /* ===== VERIFICADOR DE ID DE JUGADOR ===== */
+    let jugadorVerificado = null; // { id, nickname }
+
+    function mostrarEstado(texto, tipo) {
+      const el = document.getElementById('verify-status');
+      el.textContent = texto;
+      el.className = 'verify-status ' + (tipo || '');
+    }
+
+    function ocultarJugador() {
+      document.getElementById('player-card').hidden = true;
+      jugadorVerificado = null;
+    }
+
+    function mostrarJugador(data) {
+      document.getElementById('player-name').textContent = data.nickname || 'Jugador';
+      const meta = [];
+      if (data.level) meta.push('Nivel ' + data.level);
+      if (data.rank) meta.push(data.rank);
+      if (data.region) meta.push('Región ' + data.region);
+      meta.push('ID ' + data.playerId);
+      document.getElementById('player-meta').textContent = meta.join(' · ');
+
+      // Icono de Free Fire (si no carga, queda el icono por defecto)
+      const img = document.getElementById('player-avatar-img');
+      const icono = document.getElementById('player-avatar-icon');
+      const caja = img.parentElement;
+      img.hidden = true; caja.classList.remove('con-img');
+      if (data.avatar) {
+        img.onload = function () { img.hidden = false; caja.classList.add('con-img'); };
+        img.onerror = function () { img.hidden = true; caja.classList.remove('con-img'); };
+        img.src = data.avatar;
+      }
+
+      // Fondo (banner) de Free Fire
+      const card = document.getElementById('player-card');
+      card.classList.remove('con-banner');
+      card.style.removeProperty('--banner');
+      if (data.banner) {
+        const pre = new Image();
+        pre.onload = function () {
+          card.style.setProperty('--banner', 'url("' + data.banner + '")');
+          card.classList.add('con-banner');
+        };
+        pre.src = data.banner;
+      }
+      card.hidden = false;
+    }
+
+    async function verificarJugador() {
+      const input = document.getElementById('player-id');
+      const btn = document.getElementById('btn-verificar');
+      const id = input.value.replace(/\D/g, '');
+      input.value = id;
+
+      if (id.length < 5 || id.length > 13) {
+        ocultarJugador();
+        mostrarEstado('Ingresá un ID válido (solo números).', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Verificando...</span>';
+      ocultarJugador();
+      mostrarEstado('Buscando jugador...', 'loading');
+
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 35000);
+
+      try {
+        const res = await fetch(N8N_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerId: id }),
+          signal: controller.signal
+        });
+        const data = await res.json();
+
+        if (data.valid) {
+          jugadorVerificado = { id: id, nickname: data.nickname };
+          mostrarJugador(data);
+          mostrarEstado('✅ ID verificado. Ya podés elegir tu recarga.', 'ok');
+        } else {
+          mostrarEstado('❌ No encontramos ese ID. Revisalo e intentá de nuevo.', 'error');
+        }
+      } catch (e) {
+        mostrarEstado(
+          e.name === 'AbortError'
+            ? 'El verificador tardó demasiado. Probá de nuevo.'
+            : 'No se pudo conectar con el verificador. Probá de nuevo en unos segundos.',
+          'error'
+        );
+      } finally {
+        clearTimeout(timer);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> <span>Verificar</span>';
+      }
+    }
+
+    // Si cambian el ID, se borra la verificación anterior
+    document.getElementById('player-id').addEventListener('input', function () {
+      if (jugadorVerificado && this.value.trim() !== jugadorVerificado.id) {
+        ocultarJugador();
+        mostrarEstado('', '');
+      }
+    });
+    document.getElementById('player-id').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') verificarJugador();
+    });
+
+    /* ===== WHATSAPP (incluye ID y nombre verificado) ===== */
+    function actualizarEnlaceWhatsApp(elem, paquete, precio) {
+      const idPlayer = document.getElementById('player-id').value.trim();
+      let msg = 'Hola! Quiero comprar ' + paquete + ' (' + precio + ').';
+      if (idPlayer) msg += ' Mi ID de Jugador es: ' + idPlayer;
+      if (jugadorVerificado && jugadorVerificado.id === idPlayer) {
+        msg += ' (Nombre: ' + jugadorVerificado.nickname + ')';
+      }
+      elem.href = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(msg);
+    }
+
+    /* ===== CHAT ===== */
+    function enviarMensajeDirecto() {
+      const input = document.getElementById('chat-user-input');
+      const mensaje = input.value.trim();
+      if (!mensaje) return;
+      const area = document.getElementById('chat-messages-container');
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-message user-msg';
+      msgDiv.textContent = mensaje;
+      area.appendChild(msgDiv);
+      area.scrollTop = area.scrollHeight;
+      input.value = '';
+
+      setTimeout(() => {
+        const adminDiv = document.createElement('div');
+        adminDiv.className = 'chat-message admin-msg';
+        adminDiv.textContent = '¡Mensaje recibido! Alma Zarela te atenderá en breve.';
+        area.appendChild(adminDiv);
+        area.scrollTop = area.scrollHeight;
+      }, 1000);
+    }
+
+    function enviarComprobantePC() {
+      const file = document.getElementById('chat-file-input').files[0];
+      if (!file) return;
+      const area = document.getElementById('chat-messages-container');
+      const div = document.createElement('div');
+      div.className = 'chat-message user-msg';
+      div.textContent = '📎 Comprobante enviado: ' + file.name;
+      area.appendChild(div);
+      area.scrollTop = area.scrollHeight;
+    }
+
+    /* ===== MENÚ Y MÚSICA ===== */
     function toggleMenu() {
-      const sidebar = document.getElementById('sidebar-menu');
-      const overlay = document.getElementById('menu-overlay');
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('open');
+      document.getElementById('sidebar-menu').classList.toggle('open');
+      document.getElementById('menu-overlay').classList.toggle('open');
     }
 
     function toggleMusica() {
-      var audio = document.getElementById("musica-fondo");
-      var icono = document.getElementById("icono-musica");
-      var boton = document.getElementById("btn-musica");
-
+      const audio = document.getElementById('musica-fondo');
+      const icono = document.getElementById('icono-musica');
+      const boton = document.getElementById('btn-musica');
       if (audio.paused) {
-        icono.className = "fa-solid fa-pause";
-        boton.classList.add("reproduciendo");
-        var playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(function(error) {
-            console.log("Audio listo para reproducir.");
-          });
-        }
+        icono.className = 'fa-solid fa-pause';
+        boton.classList.add('reproduciendo');
+        const p = audio.play();
+        if (p !== undefined) p.catch(() => console.log('Audio listo para reproducir.'));
       } else {
         audio.pause();
-        icono.className = "fa-solid fa-play";
-        boton.classList.remove("reproduciendo");
+        icono.className = 'fa-solid fa-play';
+        boton.classList.remove('reproduciendo');
       }
     }
 
-    function actualizarEnlaceWhatsApp(elem, paquete, precio) {
-      const idPlayer = document.getElementById('player-id').value.trim();
-      let msg = `Hola! Quiero comprar ${paquete} (${precio}).`;
-      if (idPlayer) {
-        msg += ` Mi ID de Jugador es: ${idPlayer}`;
-      }
-      elem.href = `https://wa.me/54911XXXXXXXX?text=${encodeURIComponent(msg)}`;
-    }
-
+    /* ===== CARRUSEL ===== */
     let slideActual = 1;
     const totalSlides = 5;
     let autoSlideTimer = null;
@@ -357,141 +608,60 @@
       const slides = document.querySelectorAll('.carousel-slide');
       const dots = document.querySelectorAll('.dot');
       if (!slides.length) return;
-
-      slides.forEach((slide, index) => {
+      slides.forEach((slide, i) => {
         slide.className = 'carousel-slide';
-        
-        if (index === slideActual) {
-          slide.classList.add('active');
-        } else if (index === (slideActual - 1 + totalSlides) % totalSlides) {
-          slide.classList.add('prev');
-        } else if (index === (slideActual + 1) % totalSlides) {
-          slide.classList.add('next');
-        } else {
-          slide.classList.add('hidden');
-        }
+        if (i === slideActual) slide.classList.add('active');
+        else if (i === (slideActual - 1 + totalSlides) % totalSlides) slide.classList.add('prev');
+        else if (i === (slideActual + 1) % totalSlides) slide.classList.add('next');
+        else slide.classList.add('hidden');
       });
-
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === slideActual);
-      });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === slideActual));
     }
 
-    function moverCarrusel(direccion) {
-      slideActual = (slideActual + direccion + totalSlides) % totalSlides;
+    function moverCarrusel(dir) {
+      slideActual = (slideActual + dir + totalSlides) % totalSlides;
       actualizarCarrusel();
-      reiniciarTimer();
+      iniciarTimer();
     }
 
-    function irASlide(index) {
-      slideActual = index;
+    function irASlide(i) {
+      slideActual = i;
       actualizarCarrusel();
-      reiniciarTimer();
+      iniciarTimer();
     }
 
     function iniciarTimer() {
       clearInterval(autoSlideTimer);
-      autoSlideTimer = setInterval(() => {
-        moverCarrusel(1);
-      }, 4000);
+      autoSlideTimer = setInterval(() => moverCarrusel(1), 4000);
     }
 
-    function reiniciarTimer() {
-      iniciarTimer();
-    }
-
-    let startX = 0;
-    let endX = 0;
-    const carouselWrapper = document.getElementById('carousel-wrapper');
-
-    if (carouselWrapper) {
-      carouselWrapper.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-      }, { passive: true });
-
-      carouselWrapper.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].clientX;
-        handleSwipe();
-      }, { passive: true });
-    }
-
-    function handleSwipe() {
-      const diff = startX - endX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) {
-          moverCarrusel(1);
-        } else {
-          moverCarrusel(-1);
-        }
-      }
-    }
-
+    /* ===== CUENTA REVENDEDOR (SIMULADO) ===== */
     function iniciarSesionSimulado() {
       const email = document.getElementById('auth-email').value;
-      if(!email) { alert("Ingresá un correo electrónico"); return; }
+      if (!email) { alert('Ingresá un correo electrónico'); return; }
       document.getElementById('user-email-display').innerText = email;
       document.getElementById('auth-forms').style.display = 'none';
       document.getElementById('user-dashboard').style.display = 'block';
     }
-
-    function registrarseSimulado() {
-      iniciarSesionSimulado();
-    }
-
+    function registrarseSimulado() { iniciarSesionSimulado(); }
     function cerrarSesionSimulado() {
       document.getElementById('auth-forms').style.display = 'block';
       document.getElementById('user-dashboard').style.display = 'none';
     }
 
+    /* ===== CONTADOR EN VIVO ===== */
     function iniciarContadorLive() {
       const el = document.getElementById('online-count');
       if (!el) return;
-      let count = Math.floor(Math.random() * (160 - 135 + 1)) + 135;
+      let count = Math.floor(Math.random() * 26) + 135;
       el.innerText = count;
-      
       setInterval(() => {
-        const cambio = Math.floor(Math.random() * 5) - 2;
-        count = Math.max(120, Math.min(190, count + cambio));
+        count = Math.max(120, Math.min(190, count + Math.floor(Math.random() * 5) - 2));
         el.innerText = count;
       }, 3500);
     }
 
-    function agregarComentario() {
-      const autorInput = document.getElementById('comment-author');
-      const textoInput = document.getElementById('comment-text');
-      const ratingSelect = document.getElementById('comment-rating');
-      const list = document.getElementById('comments-list');
-
-      const autor = autorInput.value.trim() || "Jugador Anónimo";
-      const texto = textoInput.value.trim();
-      const rating = parseInt(ratingSelect.value) || 5;
-
-      if (!texto) {
-        alert("Por favor escribí un comentario antes de publicar.");
-        return;
-      }
-
-      let starsStr = "⭐".repeat(rating);
-
-      const newComment = document.createElement('div');
-      newComment.className = 'comment-item new-comment-anim';
-      newComment.innerHTML = `
-        <div class="comment-header">
-          <span class="comment-user"><i class="fa-solid fa-circle-user"></i> ${autor}</span>
-          <span class="comment-stars">${starsStr}</span>
-          <span class="comment-time">Justo ahora</span>
-        </div>
-        <p class="comment-body">${texto}</p>
-      `;
-
-      list.insertBefore(newComment, list.firstChild);
-
-      autorInput.value = '';
-      textoInput.value = '';
-      alert("¡Gracias por tu reseña! Se publicó con éxito.");
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       actualizarCarrusel();
       iniciarTimer();
       iniciarContadorLive();
@@ -499,3 +669,4 @@
   </script>
 </body>
 </html>
+
